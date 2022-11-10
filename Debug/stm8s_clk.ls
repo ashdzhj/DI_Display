@@ -1043,9 +1043,9 @@
 2463  0582 200a          	jra	L3501
 2464  0584               L5501:
 2465                     ; 602         clockfrequency = HSE_VALUE;
-2467  0584 ae2400        	ldw	x,#9216
+2467  0584 ae1200        	ldw	x,#4608
 2468  0587 1f07          	ldw	(OFST-2,sp),x
-2469  0589 ae00f4        	ldw	x,#244
+2469  0589 ae007a        	ldw	x,#122
 2470  058c 1f05          	ldw	(OFST-4,sp),x
 2471  058e               L3501:
 2472                     ; 605     return((uint32_t)clockfrequency);

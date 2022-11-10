@@ -22,6 +22,7 @@ static void GPIO_Config(void);
   */
 void main(void)
 {
+
 	/* GPIO Configuration ------------------------------------------------------*/
   GPIO_Config();
 
@@ -30,9 +31,21 @@ void main(void)
 	
 	while (1)
 	{
+		/*KEY5V_EN Pin set to 1*/
 		GPIO_WriteHigh(GPIOD, (GPIO_Pin_TypeDef)GPIO_PIN_5);
-		GPIO_WriteHigh(GPIOF, (GPIO_Pin_TypeDef)GPIO_PIN_4);
+		/*LCD_POW Pin set to 1*/
+		GPIO_WriteHigh(GPIOD, (GPIO_Pin_TypeDef)GPIO_PIN_2);
+		/*LCD_POW1 Pin set to 1*/
+		GPIO_WriteHigh(GPIOC, (GPIO_Pin_TypeDef)GPIO_PIN_4);
+		/*LCD_POW1 Pin set to 1*/
+		GPIO_WriteHigh(GPIOB, (GPIO_Pin_TypeDef)GPIO_PIN_2);
+		/*PDB Pin set to 1*/
+		GPIO_WriteHigh(GPIOD, (GPIO_Pin_TypeDef)GPIO_PIN_3);
+		/*LCD_PWM_CTRL Pin set to 1*/
 		GPIO_WriteHigh(GPIOC, (GPIO_Pin_TypeDef)GPIO_PIN_2);
+		/*LCD_BL_EN Pin set to 1*/
+		GPIO_WriteHigh(GPIOF, (GPIO_Pin_TypeDef)GPIO_PIN_4);
+		
 	};
 }
 
@@ -44,8 +57,18 @@ void main(void)
 void CLK_Config(void)
 {
 
+  ErrorStatus status = ERROR;
+	
   /* HSI Clock divider set to 1 */
   CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
+	
+	/* CPU Clock divider set to 1*/
+	CLK_SYSCLKConfig(CLK_PRESCALER_CPUDIV1);
+	
+	/* Enable HSE to run on XTAL : required for LIN master */
+	status = CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSE,
+                                   DISABLE, CLK_CURRENTCLOCKSTATE_DISABLE);
+
 
 }
 
@@ -56,18 +79,29 @@ void CLK_Config(void)
   */
 void GPIO_Config(void)
 {
-
-#ifdef DEBUG
-  //GPIO_Init(GPIOB, (GPIO_Pin_TypeDef)GPIO_PIN_ALL, GPIO_MODE_OUT_PP_LOW_FAST);
-#endif
-
-
+	
+	/*Init KEY5V_EN Pin*/
 	GPIO_Init( GPIOD, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);
 	
-	GPIO_Init( GPIOF, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);
+	/*Init LCD_POW Pin*/
+	GPIO_Init( GPIOD, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);
+
+	/*Init LCD_POW1 Pin*/
+	GPIO_Init( GPIOC, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);
+
+	/*Init LCD_POW1 Pin*/
+	GPIO_Init( GPIOB, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);
 	
+	/*Init PDB Pin*/
+	GPIO_Init( GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);
+
+	/*Init LCD_PWM_CTRL Pin*/
 	GPIO_Init( GPIOC, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);
 	
+	/*Init LCD_BL_EN Pin*/
+	GPIO_Init( GPIOF, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);
+	
+
   /* Init SPI peripheral pins */
   //GPIO_Init(GPIOC, (GPIO_Pin_TypeDef)(GPIO_PIN_5 | GPIO_PIN_6),
    //         GPIO_MODE_OUT_PP_LOW_FAST); /* MOSI + CLK */

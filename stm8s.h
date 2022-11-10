@@ -106,7 +106,7 @@
 //#define HSE_VALUE ((u32)24000000) /* Value of the External oscillator in Hz*/
 #define HSE_VALUE ((u32)16000000) /* Value of the External oscillator in Hz*/
 #else
-#define HSE_VALUE ((u32)16000000) /* Value of the External oscillator in Hz*/
+#define HSE_VALUE ((u32)8000000) /* Value of the External oscillator in Hz*/
 #endif /* STM8S208 || STM8S207 || STM8S007 || STM8AF62Ax || STM8AF52Ax */
 #endif /* HSE_Value */
 

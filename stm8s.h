@@ -30,6 +30,13 @@
 #ifndef __STM8S_H
 #define __STM8S_H
 
+#ifndef STM8AF626x
+#define STM8AF626x
+#endif 
+
+#ifndef __CSMC__
+#define __CSMC__
+#endif
 /** @addtogroup STM8S_StdPeriph_Driver
   * @{
   */
@@ -69,7 +76,7 @@
     !defined (STM8S103) && !defined (STM8S903) && !defined (STM8AF52Ax) && \
     !defined (STM8AF62Ax) && !defined (STM8AF626x) && !defined (STM8S007) && \
     !defined (STM8S003)&& !defined (STM8S005)
-//#error "Please select first the target STM8S/A device used in your application (in stm8s.h file)"
+#error "Please select first the target STM8S/A device used in your application (in stm8s.h file)"
 #endif
 
 /******************************************************************************/
@@ -83,7 +90,7 @@
 #elif defined(__ICCSTM8__)
 #define _IAR_
 #else
-//#error "Unsupported Compiler!"          /* Compiler defines not found */
+#error "Unsupported Compiler!"          /* Compiler defines not found */
 #endif
 
 #if !defined  USE_STDPERIPH_DRIVER

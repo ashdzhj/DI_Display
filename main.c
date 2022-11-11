@@ -6,12 +6,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm8s.h"
+#include "stm8s_adc1.h"
 
-//#define STM8AF626x
-//#define __CSMC__
+
 /* Private functions prototypes ----------------------------------------------*/
 static void CLK_Config(void);
 static void GPIO_Config(void);
+static void ADC_Config(void);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -22,12 +23,18 @@ static void GPIO_Config(void);
   */
 void main(void)
 {
+	static uint8_t test_temp;
+	
+  static uint16_t test_ADC;
 
 	/* GPIO Configuration ------------------------------------------------------*/
   GPIO_Config();
 
   /* Clock configuration -----------------------------------------------------*/
   CLK_Config();
+
+	/* ADC configuration -----------------------------------------------------*/
+  ADC_Config();
 	
 	while (1)
 	{
@@ -45,7 +52,11 @@ void main(void)
 		GPIO_WriteHigh(GPIOC, (GPIO_Pin_TypeDef)GPIO_PIN_2);
 		/*LCD_BL_EN Pin set to 1*/
 		GPIO_WriteHigh(GPIOF, (GPIO_Pin_TypeDef)GPIO_PIN_4);
+
+    ADC1_StartConversion();
+    test_ADC = ADC1_GetConversionValue();
 		
+		test_temp++;
 	};
 }
 
@@ -126,6 +137,22 @@ void GPIO_Config(void)
   /* User Button 1 & 2 external interrupt sensitivity set to falling edge */
   //EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOE, EXTI_SENSITIVITY_FALL_ONLY);
 }
+
+/**
+  * @brief  ADC configuration
+  * @param  None
+  * @retval None
+  */
+void ADC_Config(void)
+{
+  /*Initializes the ADC1 peripheral according to the specified parameters*/
+  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS,ADC1_CHANNEL_0,ADC1_PRESSEL_FCPU_D2,ADC1_EXTTRIG_TIM,DISABLE,ADC1_ALIGN_RIGHT,ADC1_SCHMITTTRIG_ALL,DISABLE);
+  
+  /*Enable ADC1 peripheral*/
+  ADC1_Cmd(ENABLE);	
+
+}
+
 
 #ifdef USE_FULL_ASSERT
 /**

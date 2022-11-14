@@ -9,6 +9,7 @@
 #include "stm8s_adc1.h"
 #include "stm8s_tim1.h"
 #include "stm8s_exti.h"
+#include "stm8s_iwdg.h"
 
 
 /* Private functions prototypes ----------------------------------------------*/
@@ -16,6 +17,7 @@ static void CLK_Config(void);
 static void GPIO_Config(void);
 static void ADC_Config(void);
 static void PWM_Config(void);
+static void IWDG_Config(void);
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -36,6 +38,9 @@ void main(void)
   /* Clock configuration -----------------------------------------------------*/
   CLK_Config();
 
+  /* IWDG configuration -----------------------------------------------------*/
+  IWDG_Config();
+  
 	/* ADC configuration -----------------------------------------------------*/
   ADC_Config();
 
@@ -44,6 +49,9 @@ void main(void)
 
 	while (1)
 	{
+    /* Refresh IWDG counter */
+    IWDG_ReloadCounter();
+
 		/*KEY5V_EN Pin set to 1*/
 		GPIO_WriteHigh(GPIOD, (GPIO_Pin_TypeDef)GPIO_PIN_5);
 		/*LCD_POW Pin set to 1*/
@@ -60,7 +68,7 @@ void main(void)
     ADC1_StartConversion();
     test_ADC = ADC1_GetConversionValue();
 
-    TIM1_SetCompare2(80);//80%
+    TIM1_SetCompare2(100);//80%
 		
 		test_temp++;
 	};
@@ -163,6 +171,7 @@ void ADC_Config(void)
   */
 void PWM_Config(void)
 {
+
   /*Enable TIM1 clock*/
   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER1,ENABLE);
 
@@ -177,8 +186,42 @@ void PWM_Config(void)
 
   /*Enables the TIM1 peripheral Main Outputs.*/
   TIM1_CtrlPWMOutputs(ENABLE);
+
 }
 
+/**
+  * @brief  IWDG/Internal Watchdog configuration
+  * @param  None
+  * @retval None
+  */
+void IWDG_Config(void)
+{
+
+  /* --- IWDG Configuration --- */
+
+  /* Enable IWDG (the LSI oscillator will be enabled by hardware) */
+  IWDG_Enable(); 
+
+  /* IWDG timeout equal to 250 ms (the timeout may varies due to LSI frequency dispersion) */
+  /* Enable write access to IWDG_PR and IWDG_RLR registers */
+  IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);
+  
+  /* IWDG counter clock: LSI/128 */
+  IWDG_SetPrescaler(IWDG_Prescaler_128);
+
+  /* Set counter reload value to obtain 250ms IWDG Timeout.
+  **     Counter Reload Value = 250ms/IWDG counter clock period
+  **      = 250ms / (LSI/128)
+  **      = 0.25s / (LsiFreq/128)
+  **      = LsiFreq/(128 * 4)
+  **      = LsiFreq/512
+  **      */
+  IWDG_SetReload((uint8_t)(0xFF));/*510ms*/
+  
+  /* Reload IWDG counter */
+  IWDG_ReloadCounter();
+
+}
 
 #ifdef USE_FULL_ASSERT
 /**
@@ -198,7 +241,6 @@ void assert_failed(uint8_t* file, uint32_t line)
   {}
 }
 #endif
-
 
 
 /*****************************************************************************************************************/

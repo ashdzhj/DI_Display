@@ -300,6 +300,11 @@ Next=Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\inc.stm8s_stdperiph_driv
 [Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\inc.stm8s_stdperiph_driver\inc\stm8s_clk.h]
 ElemType=File
 PathName=stm8s_stdperiph_driver\inc\stm8s_clk.h
+Next=Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\inc.stm8s_stdperiph_driver\inc\stm8s_exti.h
+
+[Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\inc.stm8s_stdperiph_driver\inc\stm8s_exti.h]
+ElemType=File
+PathName=stm8s_stdperiph_driver\inc\stm8s_exti.h
 Next=Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\inc.stm8s_stdperiph_driver\inc\stm8s_gpio.h
 
 [Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\inc.stm8s_stdperiph_driver\inc\stm8s_gpio.h]
@@ -324,6 +329,11 @@ Next=Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\src.stm8s_stdperiph_driv
 [Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\src.stm8s_stdperiph_driver\src\stm8s_clk.c]
 ElemType=File
 PathName=stm8s_stdperiph_driver\src\stm8s_clk.c
+Next=Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\src.stm8s_stdperiph_driver\src\stm8s_exti.c
+
+[Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\src.stm8s_stdperiph_driver\src\stm8s_exti.c]
+ElemType=File
+PathName=stm8s_stdperiph_driver\src\stm8s_exti.c
 Next=Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\src.stm8s_stdperiph_driver\src\stm8s_gpio.c
 
 [Root.STM8S_StdPeriph_Driver.STM8S_StdPeriph_Driver\src.stm8s_stdperiph_driver\src\stm8s_gpio.c]
@@ -412,6 +422,11 @@ Next=Root.Source Files.stm8_interrupt_vector.c
 [Root.Source Files.stm8_interrupt_vector.c]
 ElemType=File
 PathName=stm8_interrupt_vector.c
+Next=Root.Source Files.stm8s_it.c
+
+[Root.Source Files.stm8s_it.c]
+ElemType=File
+PathName=stm8s_it.c
 
 [Root.Include Files]
 ElemType=Folder
@@ -499,3 +514,8 @@ Next=Root.Include Files.stm8s_conf.h
 [Root.Include Files.stm8s_conf.h]
 ElemType=File
 PathName=stm8s_conf.h
+Next=Root.Include Files.stm8s_it.h
+
+[Root.Include Files.stm8s_it.h]
+ElemType=File
+PathName=stm8s_it.h

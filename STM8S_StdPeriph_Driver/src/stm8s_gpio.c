@@ -68,11 +68,11 @@ void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef GPIO_Pin, GPIO_Mode_TypeDef
     /* Check the parameters */
     /*----------------------*/
 
-    //assert_param(IS_GPIO_MODE_OK(GPIO_Mode));
-    //assert_param(IS_GPIO_PIN_OK(GPIO_Pin));
+    assert_param(IS_GPIO_MODE_OK(GPIO_Mode));
+    assert_param(IS_GPIO_PIN_OK(GPIO_Pin));
     
-  /* Reset corresponding bit to GPIO_Pin in CR2 register */
-  GPIOx->CR2 &= (uint8_t)(~(GPIO_Pin));
+    /* Reset corresponding bit to GPIO_Pin in CR2 register */
+    GPIOx->CR2 &= (uint8_t)(~(GPIO_Pin));
 
     /*-----------------------------*/
     /* Input/Output mode selection */
@@ -219,8 +219,8 @@ BitStatus GPIO_ReadInputPin(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef GPIO_Pin)
 void GPIO_ExternalPullUpConfig(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef GPIO_Pin, FunctionalState NewState)
 {
     /* Check the parameters */
-    //assert_param(IS_GPIO_PIN_OK(GPIO_Pin));
-    //assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+    assert_param(IS_GPIO_PIN_OK(GPIO_Pin));
+    assert_param(IS_FUNCTIONALSTATE_OK(NewState));
 
     if (NewState != DISABLE) /* External Pull-Up Set*/
     {

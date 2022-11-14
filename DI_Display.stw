@@ -6,7 +6,3 @@ Keyword=ST7Workspace-V0.7
 [Project0]
 Filename=di_display.stp
 Dependencies=
-[Options]
-ActiveProject=di_display
-ActiveConfig=Debug
-AddSortedElements=1

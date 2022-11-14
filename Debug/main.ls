@@ -132,29 +132,29 @@
  326  00b6 ae5019        	ldw	x,#20505
  327  00b9 cd0000        	call	_GPIO_Init
  329  00bc 85            	popw	x
- 330                     ; 123 	GPIO_Init( GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_IT);
+ 330                     ; 122 	GPIO_Init( GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_IT);
  332  00bd 4b60          	push	#96
  333  00bf 4b40          	push	#64
  334  00c1 ae500f        	ldw	x,#20495
  335  00c4 cd0000        	call	_GPIO_Init
  337  00c7 85            	popw	x
- 338                     ; 126   EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);
- 340  00c8 ae0001        	ldw	x,#1
+ 338                     ; 125   EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_FALL_ONLY);
+ 340  00c8 ae0002        	ldw	x,#2
  341  00cb a603          	ld	a,#3
  342  00cd 95            	ld	xh,a
  343  00ce cd0000        	call	_EXTI_SetExtIntSensitivity
- 345                     ; 137 }
+ 345                     ; 135 }
  348  00d1 81            	ret
- 374                     ; 144 void ADC_Config(void)
- 374                     ; 145 {
+ 374                     ; 142 void ADC_Config(void)
+ 374                     ; 143 {
  375                     	switch	.text
  376  00d2               L7_ADC_Config:
- 380                     ; 148   CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC,ENABLE);
+ 380                     ; 146   CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC,ENABLE);
  382  00d2 ae0001        	ldw	x,#1
  383  00d5 a613          	ld	a,#19
  384  00d7 95            	ld	xh,a
  385  00d8 cd0000        	call	_CLK_PeripheralClockConfig
- 387                     ; 151   ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS,ADC1_CHANNEL_0,ADC1_PRESSEL_FCPU_D2,ADC1_EXTTRIG_TIM,DISABLE,ADC1_ALIGN_RIGHT,ADC1_SCHMITTTRIG_ALL,DISABLE);
+ 387                     ; 149   ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS,ADC1_CHANNEL_0,ADC1_PRESSEL_FCPU_D2,ADC1_EXTTRIG_TIM,DISABLE,ADC1_ALIGN_RIGHT,ADC1_SCHMITTTRIG_ALL,DISABLE);
  389  00db 4b00          	push	#0
  390  00dd 4bff          	push	#255
  391  00df 4b08          	push	#8
@@ -166,21 +166,21 @@
  397  00ea 95            	ld	xh,a
  398  00eb cd0000        	call	_ADC1_Init
  400  00ee 5b06          	addw	sp,#6
- 401                     ; 154   ADC1_Cmd(ENABLE);	
+ 401                     ; 152   ADC1_Cmd(ENABLE);	
  403  00f0 a601          	ld	a,#1
  404  00f2 cd0000        	call	_ADC1_Cmd
- 406                     ; 156 }
+ 406                     ; 154 }
  409  00f5 81            	ret
- 437                     ; 163 void PWM_Config(void)
- 437                     ; 164 {
+ 437                     ; 161 void PWM_Config(void)
+ 437                     ; 162 {
  438                     	switch	.text
  439  00f6               L11_PWM_Config:
- 443                     ; 166   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER1,ENABLE);
+ 443                     ; 164   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER1,ENABLE);
  445  00f6 ae0001        	ldw	x,#1
  446  00f9 a607          	ld	a,#7
  447  00fb 95            	ld	xh,a
  448  00fc cd0000        	call	_CLK_PeripheralClockConfig
- 450                     ; 169   TIM1_TimeBaseInit(7,TIM1_COUNTERMODE_UP,100,0);//10khz
+ 450                     ; 167   TIM1_TimeBaseInit(7,TIM1_COUNTERMODE_UP,100,0);//10khz
  452  00ff 4b00          	push	#0
  453  0101 ae0064        	ldw	x,#100
  454  0104 89            	pushw	x
@@ -188,7 +188,7 @@
  456  0107 ae0007        	ldw	x,#7
  457  010a ad25          	call	_TIM1_TimeBaseInit
  459  010c 5b04          	addw	sp,#4
- 460                     ; 172   TIM1_OC2Init(TIM1_OCMODE_PWM2,TIM1_OUTPUTSTATE_ENABLE,TIM1_OUTPUTNSTATE_DISABLE,0,TIM1_OCPOLARITY_LOW,TIM1_OCPOLARITY_HIGH,TIM1_OCIDLESTATE_RESET,TIM1_OCNIDLESTATE_RESET);
+ 460                     ; 170   TIM1_OC2Init(TIM1_OCMODE_PWM2,TIM1_OUTPUTSTATE_ENABLE,TIM1_OUTPUTNSTATE_DISABLE,0,TIM1_OCPOLARITY_LOW,TIM1_OCPOLARITY_HIGH,TIM1_OCIDLESTATE_RESET,TIM1_OCNIDLESTATE_RESET);
  462  010e 4b00          	push	#0
  463  0110 4b00          	push	#0
  464  0112 4b00          	push	#0
@@ -201,30 +201,30 @@
  471  011f 95            	ld	xh,a
  472  0120 ad63          	call	_TIM1_OC2Init
  474  0122 5b07          	addw	sp,#7
- 475                     ; 175   TIM1_Cmd(ENABLE);
+ 475                     ; 173   TIM1_Cmd(ENABLE);
  477  0124 a601          	ld	a,#1
  478  0126 cd02c1        	call	_TIM1_Cmd
- 480                     ; 178   TIM1_CtrlPWMOutputs(ENABLE);
+ 480                     ; 176   TIM1_CtrlPWMOutputs(ENABLE);
  482  0129 a601          	ld	a,#1
  483  012b cd02ec        	call	_TIM1_CtrlPWMOutputs
- 485                     ; 179 }
+ 485                     ; 177 }
  488  012e 81            	ret
- 523                     ; 190 void assert_failed(uint8_t* file, uint32_t line)
- 523                     ; 191 {
+ 523                     ; 188 void assert_failed(uint8_t* file, uint32_t line)
+ 523                     ; 189 {
  524                     	switch	.text
  525  012f               _assert_failed:
  529  012f               L741:
  530  012f 20fe          	jra	L741
- 640                     ; 212 void TIM1_TimeBaseInit(uint16_t TIM1_Prescaler,
- 640                     ; 213                        TIM1_CounterMode_TypeDef TIM1_CounterMode,
- 640                     ; 214                        uint16_t TIM1_Period,
- 640                     ; 215                        uint8_t TIM1_RepetitionCounter)
- 640                     ; 216 {
+ 640                     ; 210 void TIM1_TimeBaseInit(uint16_t TIM1_Prescaler,
+ 640                     ; 211                        TIM1_CounterMode_TypeDef TIM1_CounterMode,
+ 640                     ; 212                        uint16_t TIM1_Period,
+ 640                     ; 213                        uint8_t TIM1_RepetitionCounter)
+ 640                     ; 214 {
  641                     	switch	.text
  642  0131               _TIM1_TimeBaseInit:
  644  0131 89            	pushw	x
  645       00000000      OFST:	set	0
- 648                     ; 219     assert_param(IS_TIM1_COUNTER_MODE_OK(TIM1_CounterMode));
+ 648                     ; 217     assert_param(IS_TIM1_COUNTER_MODE_OK(TIM1_CounterMode));
  650  0132 0d05          	tnz	(OFST+5,sp)
  651  0134 2718          	jreq	L42
  652  0136 7b05          	ld	a,(OFST+5,sp)
@@ -243,7 +243,7 @@
  665  014e 4f            	clr	a
  666  014f 200f          	jra	L62
  667  0151               L22:
- 668  0151 ae00db        	ldw	x,#219
+ 668  0151 ae00d9        	ldw	x,#217
  669  0154 89            	pushw	x
  670  0155 ae0000        	ldw	x,#0
  671  0158 89            	pushw	x
@@ -251,45 +251,45 @@
  673  015c add1          	call	_assert_failed
  675  015e 5b04          	addw	sp,#4
  676  0160               L62:
- 677                     ; 222     TIM1->ARRH = (uint8_t)(TIM1_Period >> 8);
+ 677                     ; 220     TIM1->ARRH = (uint8_t)(TIM1_Period >> 8);
  679  0160 7b06          	ld	a,(OFST+6,sp)
  680  0162 c75262        	ld	21090,a
- 681                     ; 223     TIM1->ARRL = (uint8_t)(TIM1_Period);
+ 681                     ; 221     TIM1->ARRL = (uint8_t)(TIM1_Period);
  683  0165 7b07          	ld	a,(OFST+7,sp)
  684  0167 c75263        	ld	21091,a
- 685                     ; 226     TIM1->PSCRH = (uint8_t)(TIM1_Prescaler >> 8);
+ 685                     ; 224     TIM1->PSCRH = (uint8_t)(TIM1_Prescaler >> 8);
  687  016a 7b01          	ld	a,(OFST+1,sp)
  688  016c c75260        	ld	21088,a
- 689                     ; 227     TIM1->PSCRL = (uint8_t)(TIM1_Prescaler);
+ 689                     ; 225     TIM1->PSCRL = (uint8_t)(TIM1_Prescaler);
  691  016f 7b02          	ld	a,(OFST+2,sp)
  692  0171 c75261        	ld	21089,a
- 693                     ; 230     TIM1->CR1 = (uint8_t)((uint8_t)(TIM1->CR1 & (uint8_t)(~(TIM1_CR1_CMS | TIM1_CR1_DIR)))
- 693                     ; 231                            | (uint8_t)(TIM1_CounterMode));
+ 693                     ; 228     TIM1->CR1 = (uint8_t)((uint8_t)(TIM1->CR1 & (uint8_t)(~(TIM1_CR1_CMS | TIM1_CR1_DIR)))
+ 693                     ; 229                            | (uint8_t)(TIM1_CounterMode));
  695  0174 c65250        	ld	a,21072
  696  0177 a48f          	and	a,#143
  697  0179 1a05          	or	a,(OFST+5,sp)
  698  017b c75250        	ld	21072,a
- 699                     ; 234     TIM1->RCR = TIM1_RepetitionCounter;
+ 699                     ; 232     TIM1->RCR = TIM1_RepetitionCounter;
  701  017e 7b08          	ld	a,(OFST+8,sp)
  702  0180 c75264        	ld	21092,a
- 703                     ; 236 }
+ 703                     ; 234 }
  706  0183 85            	popw	x
  707  0184 81            	ret
- 993                     ; 257 void TIM1_OC2Init(TIM1_OCMode_TypeDef TIM1_OCMode,
- 993                     ; 258                   TIM1_OutputState_TypeDef TIM1_OutputState,
- 993                     ; 259                   TIM1_OutputNState_TypeDef TIM1_OutputNState,
- 993                     ; 260                   uint16_t TIM1_Pulse,
- 993                     ; 261                   TIM1_OCPolarity_TypeDef TIM1_OCPolarity,
- 993                     ; 262                   TIM1_OCNPolarity_TypeDef TIM1_OCNPolarity,
- 993                     ; 263                   TIM1_OCIdleState_TypeDef TIM1_OCIdleState,
- 993                     ; 264                   TIM1_OCNIdleState_TypeDef TIM1_OCNIdleState)
- 993                     ; 265 {
+ 993                     ; 255 void TIM1_OC2Init(TIM1_OCMode_TypeDef TIM1_OCMode,
+ 993                     ; 256                   TIM1_OutputState_TypeDef TIM1_OutputState,
+ 993                     ; 257                   TIM1_OutputNState_TypeDef TIM1_OutputNState,
+ 993                     ; 258                   uint16_t TIM1_Pulse,
+ 993                     ; 259                   TIM1_OCPolarity_TypeDef TIM1_OCPolarity,
+ 993                     ; 260                   TIM1_OCNPolarity_TypeDef TIM1_OCNPolarity,
+ 993                     ; 261                   TIM1_OCIdleState_TypeDef TIM1_OCIdleState,
+ 993                     ; 262                   TIM1_OCNIdleState_TypeDef TIM1_OCNIdleState)
+ 993                     ; 263 {
  994                     	switch	.text
  995  0185               _TIM1_OC2Init:
  997  0185 89            	pushw	x
  998  0186 5203          	subw	sp,#3
  999       00000003      OFST:	set	3
-1002                     ; 267     assert_param(IS_TIM1_OC_MODE_OK(TIM1_OCMode));
+1002                     ; 265     assert_param(IS_TIM1_OC_MODE_OK(TIM1_OCMode));
 1004  0188 9e            	ld	a,xh
 1005  0189 4d            	tnz	a
 1006  018a 2719          	jreq	L43
@@ -312,7 +312,7 @@
 1023  01a5 4f            	clr	a
 1024  01a6 2010          	jra	L63
 1025  01a8               L23:
-1026  01a8 ae010b        	ldw	x,#267
+1026  01a8 ae0109        	ldw	x,#265
 1027  01ab 89            	pushw	x
 1028  01ac ae0000        	ldw	x,#0
 1029  01af 89            	pushw	x
@@ -320,7 +320,7 @@
 1031  01b3 cd012f        	call	_assert_failed
 1033  01b6 5b04          	addw	sp,#4
 1034  01b8               L63:
-1035                     ; 268     assert_param(IS_TIM1_OUTPUT_STATE_OK(TIM1_OutputState));
+1035                     ; 266     assert_param(IS_TIM1_OUTPUT_STATE_OK(TIM1_OutputState));
 1037  01b8 0d05          	tnz	(OFST+2,sp)
 1038  01ba 2706          	jreq	L24
 1039  01bc 7b05          	ld	a,(OFST+2,sp)
@@ -330,7 +330,7 @@
 1043  01c2 4f            	clr	a
 1044  01c3 2010          	jra	L44
 1045  01c5               L04:
-1046  01c5 ae010c        	ldw	x,#268
+1046  01c5 ae010a        	ldw	x,#266
 1047  01c8 89            	pushw	x
 1048  01c9 ae0000        	ldw	x,#0
 1049  01cc 89            	pushw	x
@@ -338,7 +338,7 @@
 1051  01d0 cd012f        	call	_assert_failed
 1053  01d3 5b04          	addw	sp,#4
 1054  01d5               L44:
-1055                     ; 269     assert_param(IS_TIM1_OUTPUTN_STATE_OK(TIM1_OutputNState));
+1055                     ; 267     assert_param(IS_TIM1_OUTPUTN_STATE_OK(TIM1_OutputNState));
 1057  01d5 0d08          	tnz	(OFST+5,sp)
 1058  01d7 2706          	jreq	L05
 1059  01d9 7b08          	ld	a,(OFST+5,sp)
@@ -348,7 +348,7 @@
 1063  01df 4f            	clr	a
 1064  01e0 2010          	jra	L25
 1065  01e2               L64:
-1066  01e2 ae010d        	ldw	x,#269
+1066  01e2 ae010b        	ldw	x,#267
 1067  01e5 89            	pushw	x
 1068  01e6 ae0000        	ldw	x,#0
 1069  01e9 89            	pushw	x
@@ -356,7 +356,7 @@
 1071  01ed cd012f        	call	_assert_failed
 1073  01f0 5b04          	addw	sp,#4
 1074  01f2               L25:
-1075                     ; 270     assert_param(IS_TIM1_OC_POLARITY_OK(TIM1_OCPolarity));
+1075                     ; 268     assert_param(IS_TIM1_OC_POLARITY_OK(TIM1_OCPolarity));
 1077  01f2 0d0b          	tnz	(OFST+8,sp)
 1078  01f4 2706          	jreq	L65
 1079  01f6 7b0b          	ld	a,(OFST+8,sp)
@@ -366,7 +366,7 @@
 1083  01fc 4f            	clr	a
 1084  01fd 2010          	jra	L06
 1085  01ff               L45:
-1086  01ff ae010e        	ldw	x,#270
+1086  01ff ae010c        	ldw	x,#268
 1087  0202 89            	pushw	x
 1088  0203 ae0000        	ldw	x,#0
 1089  0206 89            	pushw	x
@@ -374,7 +374,7 @@
 1091  020a cd012f        	call	_assert_failed
 1093  020d 5b04          	addw	sp,#4
 1094  020f               L06:
-1095                     ; 271     assert_param(IS_TIM1_OCN_POLARITY_OK(TIM1_OCNPolarity));
+1095                     ; 269     assert_param(IS_TIM1_OCN_POLARITY_OK(TIM1_OCNPolarity));
 1097  020f 0d0c          	tnz	(OFST+9,sp)
 1098  0211 2706          	jreq	L46
 1099  0213 7b0c          	ld	a,(OFST+9,sp)
@@ -384,7 +384,7 @@
 1103  0219 4f            	clr	a
 1104  021a 2010          	jra	L66
 1105  021c               L26:
-1106  021c ae010f        	ldw	x,#271
+1106  021c ae010d        	ldw	x,#269
 1107  021f 89            	pushw	x
 1108  0220 ae0000        	ldw	x,#0
 1109  0223 89            	pushw	x
@@ -392,7 +392,7 @@
 1111  0227 cd012f        	call	_assert_failed
 1113  022a 5b04          	addw	sp,#4
 1114  022c               L66:
-1115                     ; 272     assert_param(IS_TIM1_OCIDLE_STATE_OK(TIM1_OCIdleState));
+1115                     ; 270     assert_param(IS_TIM1_OCIDLE_STATE_OK(TIM1_OCIdleState));
 1117  022c 7b0d          	ld	a,(OFST+10,sp)
 1118  022e a155          	cp	a,#85
 1119  0230 2704          	jreq	L27
@@ -402,7 +402,7 @@
 1123  0236 4f            	clr	a
 1124  0237 2010          	jra	L47
 1125  0239               L07:
-1126  0239 ae0110        	ldw	x,#272
+1126  0239 ae010e        	ldw	x,#270
 1127  023c 89            	pushw	x
 1128  023d ae0000        	ldw	x,#0
 1129  0240 89            	pushw	x
@@ -410,7 +410,7 @@
 1131  0244 cd012f        	call	_assert_failed
 1133  0247 5b04          	addw	sp,#4
 1134  0249               L47:
-1135                     ; 273     assert_param(IS_TIM1_OCNIDLE_STATE_OK(TIM1_OCNIdleState));
+1135                     ; 271     assert_param(IS_TIM1_OCNIDLE_STATE_OK(TIM1_OCNIdleState));
 1137  0249 7b0e          	ld	a,(OFST+11,sp)
 1138  024b a12a          	cp	a,#42
 1139  024d 2704          	jreq	L001
@@ -420,7 +420,7 @@
 1143  0253 4f            	clr	a
 1144  0254 2010          	jra	L201
 1145  0256               L67:
-1146  0256 ae0111        	ldw	x,#273
+1146  0256 ae010f        	ldw	x,#271
 1147  0259 89            	pushw	x
 1148  025a ae0000        	ldw	x,#0
 1149  025d 89            	pushw	x
@@ -428,15 +428,15 @@
 1151  0261 cd012f        	call	_assert_failed
 1153  0264 5b04          	addw	sp,#4
 1154  0266               L201:
-1155                     ; 277     TIM1->CCER1 &= (uint8_t)(~( TIM1_CCER1_CC2E | TIM1_CCER1_CC2NE | 
-1155                     ; 278                                 TIM1_CCER1_CC2P | TIM1_CCER1_CC2NP));
+1155                     ; 275     TIM1->CCER1 &= (uint8_t)(~( TIM1_CCER1_CC2E | TIM1_CCER1_CC2NE | 
+1155                     ; 276                                 TIM1_CCER1_CC2P | TIM1_CCER1_CC2NP));
 1157  0266 c6525c        	ld	a,21084
 1158  0269 a40f          	and	a,#15
 1159  026b c7525c        	ld	21084,a
-1160                     ; 282     TIM1->CCER1 |= (uint8_t)((uint8_t)((uint8_t)(TIM1_OutputState & TIM1_CCER1_CC2E  ) | 
-1160                     ; 283                              (uint8_t)(TIM1_OutputNState & TIM1_CCER1_CC2NE )) | 
-1160                     ; 284                              (uint8_t)((uint8_t)(TIM1_OCPolarity  & TIM1_CCER1_CC2P  ) | 
-1160                     ; 285                              (uint8_t)(TIM1_OCNPolarity & TIM1_CCER1_CC2NP )));
+1160                     ; 280     TIM1->CCER1 |= (uint8_t)((uint8_t)((uint8_t)(TIM1_OutputState & TIM1_CCER1_CC2E  ) | 
+1160                     ; 281                              (uint8_t)(TIM1_OutputNState & TIM1_CCER1_CC2NE )) | 
+1160                     ; 282                              (uint8_t)((uint8_t)(TIM1_OCPolarity  & TIM1_CCER1_CC2P  ) | 
+1160                     ; 283                              (uint8_t)(TIM1_OCNPolarity & TIM1_CCER1_CC2NP )));
 1162  026e 7b0c          	ld	a,(OFST+9,sp)
 1163  0270 a480          	and	a,#128
 1164  0272 6b03          	ld	(OFST+0,sp),a
@@ -453,18 +453,18 @@
 1175  0288 1a02          	or	a,(OFST-1,sp)
 1176  028a ca525c        	or	a,21084
 1177  028d c7525c        	ld	21084,a
-1178                     ; 288     TIM1->CCMR2 = (uint8_t)((uint8_t)(TIM1->CCMR2 & (uint8_t)(~TIM1_CCMR_OCM)) | 
-1178                     ; 289                              (uint8_t)TIM1_OCMode);
+1178                     ; 286     TIM1->CCMR2 = (uint8_t)((uint8_t)(TIM1->CCMR2 & (uint8_t)(~TIM1_CCMR_OCM)) | 
+1178                     ; 287                              (uint8_t)TIM1_OCMode);
 1180  0290 c65259        	ld	a,21081
 1181  0293 a48f          	and	a,#143
 1182  0295 1a04          	or	a,(OFST+1,sp)
 1183  0297 c75259        	ld	21081,a
-1184                     ; 292     TIM1->OISR &= (uint8_t)(~(TIM1_OISR_OIS2 | TIM1_OISR_OIS2N));
+1184                     ; 290     TIM1->OISR &= (uint8_t)(~(TIM1_OISR_OIS2 | TIM1_OISR_OIS2N));
 1186  029a c6526f        	ld	a,21103
 1187  029d a4f3          	and	a,#243
 1188  029f c7526f        	ld	21103,a
-1189                     ; 294     TIM1->OISR |= (uint8_t)((uint8_t)(TIM1_OISR_OIS2 & TIM1_OCIdleState) | 
-1189                     ; 295                             (uint8_t)(TIM1_OISR_OIS2N & TIM1_OCNIdleState));
+1189                     ; 292     TIM1->OISR |= (uint8_t)((uint8_t)(TIM1_OISR_OIS2 & TIM1_OCIdleState) | 
+1189                     ; 293                             (uint8_t)(TIM1_OISR_OIS2N & TIM1_OCNIdleState));
 1191  02a2 7b0e          	ld	a,(OFST+11,sp)
 1192  02a4 a408          	and	a,#8
 1193  02a6 6b03          	ld	(OFST+0,sp),a
@@ -473,22 +473,22 @@
 1196  02ac 1a03          	or	a,(OFST+0,sp)
 1197  02ae ca526f        	or	a,21103
 1198  02b1 c7526f        	ld	21103,a
-1199                     ; 298     TIM1->CCR2H = (uint8_t)(TIM1_Pulse >> 8);
+1199                     ; 296     TIM1->CCR2H = (uint8_t)(TIM1_Pulse >> 8);
 1201  02b4 7b09          	ld	a,(OFST+6,sp)
 1202  02b6 c75267        	ld	21095,a
-1203                     ; 299     TIM1->CCR2L = (uint8_t)(TIM1_Pulse);
+1203                     ; 297     TIM1->CCR2L = (uint8_t)(TIM1_Pulse);
 1205  02b9 7b0a          	ld	a,(OFST+7,sp)
 1206  02bb c75268        	ld	21096,a
-1207                     ; 301 }
+1207                     ; 299 }
 1210  02be 5b05          	addw	sp,#5
 1211  02c0 81            	ret
-1267                     ; 309 void TIM1_Cmd(FunctionalState NewState)
-1267                     ; 310 {
+1267                     ; 307 void TIM1_Cmd(FunctionalState NewState)
+1267                     ; 308 {
 1268                     	switch	.text
 1269  02c1               _TIM1_Cmd:
 1271  02c1 88            	push	a
 1272       00000000      OFST:	set	0
-1275                     ; 312     assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+1275                     ; 310     assert_param(IS_FUNCTIONALSTATE_OK(NewState));
 1277  02c2 4d            	tnz	a
 1278  02c3 2704          	jreq	L011
 1279  02c5 a101          	cp	a,#1
@@ -497,7 +497,7 @@
 1282  02c9 4f            	clr	a
 1283  02ca 2010          	jra	L211
 1284  02cc               L601:
-1285  02cc ae0138        	ldw	x,#312
+1285  02cc ae0136        	ldw	x,#310
 1286  02cf 89            	pushw	x
 1287  02d0 ae0000        	ldw	x,#0
 1288  02d3 89            	pushw	x
@@ -505,26 +505,26 @@
 1290  02d7 cd012f        	call	_assert_failed
 1292  02da 5b04          	addw	sp,#4
 1293  02dc               L211:
-1294                     ; 315     if (NewState != DISABLE)
+1294                     ; 313     if (NewState != DISABLE)
 1296  02dc 0d01          	tnz	(OFST+1,sp)
 1297  02de 2706          	jreq	L524
-1298                     ; 317         TIM1->CR1 |= TIM1_CR1_CEN;
+1298                     ; 315         TIM1->CR1 |= TIM1_CR1_CEN;
 1300  02e0 72105250      	bset	21072,#0
 1302  02e4 2004          	jra	L724
 1303  02e6               L524:
-1304                     ; 321         TIM1->CR1 &= (uint8_t)(~TIM1_CR1_CEN);
+1304                     ; 319         TIM1->CR1 &= (uint8_t)(~TIM1_CR1_CEN);
 1306  02e6 72115250      	bres	21072,#0
 1307  02ea               L724:
-1308                     ; 323 }
+1308                     ; 321 }
 1311  02ea 84            	pop	a
 1312  02eb 81            	ret
-1349                     ; 331 void TIM1_CtrlPWMOutputs(FunctionalState NewState)
-1349                     ; 332 {
+1349                     ; 329 void TIM1_CtrlPWMOutputs(FunctionalState NewState)
+1349                     ; 330 {
 1350                     	switch	.text
 1351  02ec               _TIM1_CtrlPWMOutputs:
 1353  02ec 88            	push	a
 1354       00000000      OFST:	set	0
-1357                     ; 334     assert_param(IS_FUNCTIONALSTATE_OK(NewState));
+1357                     ; 332     assert_param(IS_FUNCTIONALSTATE_OK(NewState));
 1359  02ed 4d            	tnz	a
 1360  02ee 2704          	jreq	L021
 1361  02f0 a101          	cp	a,#1
@@ -533,7 +533,7 @@
 1364  02f4 4f            	clr	a
 1365  02f5 2010          	jra	L221
 1366  02f7               L611:
-1367  02f7 ae014e        	ldw	x,#334
+1367  02f7 ae014c        	ldw	x,#332
 1368  02fa 89            	pushw	x
 1369  02fb ae0000        	ldw	x,#0
 1370  02fe 89            	pushw	x
@@ -541,30 +541,30 @@
 1372  0302 cd012f        	call	_assert_failed
 1374  0305 5b04          	addw	sp,#4
 1375  0307               L221:
-1376                     ; 338     if (NewState != DISABLE)
+1376                     ; 336     if (NewState != DISABLE)
 1378  0307 0d01          	tnz	(OFST+1,sp)
 1379  0309 2706          	jreq	L744
-1380                     ; 340         TIM1->BKR |= TIM1_BKR_MOE;
+1380                     ; 338         TIM1->BKR |= TIM1_BKR_MOE;
 1382  030b 721e526d      	bset	21101,#7
 1384  030f 2004          	jra	L154
 1385  0311               L744:
-1386                     ; 344         TIM1->BKR &= (uint8_t)(~TIM1_BKR_MOE);
+1386                     ; 342         TIM1->BKR &= (uint8_t)(~TIM1_BKR_MOE);
 1388  0311 721f526d      	bres	21101,#7
 1389  0315               L154:
-1390                     ; 346 }
+1390                     ; 344 }
 1393  0315 84            	pop	a
 1394  0316 81            	ret
-1428                     ; 354 void TIM1_SetCompare2(uint16_t Compare2)
-1428                     ; 355 {
+1428                     ; 352 void TIM1_SetCompare2(uint16_t Compare2)
+1428                     ; 353 {
 1429                     	switch	.text
 1430  0317               _TIM1_SetCompare2:
-1434                     ; 357     TIM1->CCR2H = (uint8_t)(Compare2 >> 8);
+1434                     ; 355     TIM1->CCR2H = (uint8_t)(Compare2 >> 8);
 1436  0317 9e            	ld	a,xh
 1437  0318 c75267        	ld	21095,a
-1438                     ; 358     TIM1->CCR2L = (uint8_t)(Compare2);
+1438                     ; 356     TIM1->CCR2L = (uint8_t)(Compare2);
 1440  031b 9f            	ld	a,xl
 1441  031c c75268        	ld	21096,a
-1442                     ; 360 }
+1442                     ; 358 }
 1445  031f 81            	ret
 1458                     	xdef	_main
 1459                     	xdef	_TIM1_SetCompare2

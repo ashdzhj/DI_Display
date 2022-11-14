@@ -118,14 +118,12 @@ void GPIO_Config(void)
 	/*Init LCD_BL_EN Pin*/
 	GPIO_Init( GPIOF, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);
 	
-  //asm("sim");
 	/*Init WAKE_UP_DET Pin as external interrupt*/
 	GPIO_Init( GPIOD, GPIO_PIN_6, GPIO_MODE_IN_PU_IT);
 
   /* WAKE_UP_DET external interrupt sensitivity set to falling edge */
-  EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);
+  EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_FALL_ONLY);
 
-  //asm("rim");
   /* Init SPI peripheral pins */
   //GPIO_Init(GPIOC, (GPIO_Pin_TypeDef)(GPIO_PIN_5 | GPIO_PIN_6),
    //         GPIO_MODE_OUT_PP_LOW_FAST); /* MOSI + CLK */

@@ -68,7 +68,7 @@ void main(void)
     ADC1_StartConversion();
     test_ADC = ADC1_GetConversionValue();
 
-    TIM1_SetCompare2(100);/*100%*
+    TIM1_SetCompare2(100);/* 100% */
 		
 		test_temp++;
 	};

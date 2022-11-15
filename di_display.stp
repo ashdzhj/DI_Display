@@ -437,6 +437,11 @@ Next=Root.Source Files.stm8s_it.c
 [Root.Source Files.stm8s_it.c]
 ElemType=File
 PathName=stm8s_it.c
+Next=Root.Source Files.tca6408a.c
+
+[Root.Source Files.tca6408a.c]
+ElemType=File
+PathName=tca6408a.c
 
 [Root.Include Files]
 ElemType=Folder
@@ -529,3 +534,13 @@ Next=Root.Include Files.stm8s_it.h
 [Root.Include Files.stm8s_it.h]
 ElemType=File
 PathName=stm8s_it.h
+Next=Root.Include Files.stm8s_stdperiph_driver\inc\stm8s_i2c.h
+
+[Root.Include Files.stm8s_stdperiph_driver\inc\stm8s_i2c.h]
+ElemType=File
+PathName=stm8s_stdperiph_driver\inc\stm8s_i2c.h
+Next=Root.Include Files.tca6408a.h
+
+[Root.Include Files.tca6408a.h]
+ElemType=File
+PathName=tca6408a.h

@@ -57,6 +57,7 @@ Release\stm8s_gpio.o
 Release\stm8s_iwdg.o
 Release\main.o
 Release\stm8s_it.o
+Release\tca6408a.o
 #<END OBJECT_FILES>
 
 

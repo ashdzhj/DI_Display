@@ -57,6 +57,7 @@ Debug\stm8s_gpio.o
 Debug\stm8s_iwdg.o
 Debug\main.o
 Debug\stm8s_it.o
+Debug\tca6408a.o
 #<END OBJECT_FILES>
 
 
